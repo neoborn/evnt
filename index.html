@@ -11,7 +11,6 @@
 
 	<script src="bower_components/modernizr/modernizr.js"></script>
 	<script src="bower_components/angular/angular.min.js"></script>
-	<script type="text/javascript" src="main.js"></script>
 </head>
 
 <body>
@@ -53,13 +52,93 @@
 
 	<div class="row">
 		<div ng-controller="MainCtrl">
-			{{user.auth}}
-			<i class="fa fa-plus"></i>
+			<h2>events</h2>
+			<div class="row">
+				<div class="small-12 large-12 columns">
+					<form name="form" novalidate>
+						<div class="row">
+							<div class="large-6 columns">
+								<label>Title</label>
+								<input type="text" placeholder="title" ng-model="event.title" required/>
+							</div>
+
+							<div class="large-6 columns">
+								<label>Remark:</label>
+								<textarea placeholder="e.g. overall plan, notes" ng-model="event.remark">default</textarea>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="large-3 columns">
+								<label>Date</label>
+								<input type="date" placeholder="date" ng-model="event.date" required/>
+							</div>
+							<div class="large-3 columns">
+								<label>Time</label>
+								<input type="time" placeholder="time" ng-model="event.time" required/>
+							</div>
+							<div class="large-3 columns">
+								<label>Budget</label>
+								<input type="number" placeholder="allocated budget" ng-model="event.budget" value="0"/>
+							</div>
+							<div class="large-3 columns">
+								<label>Crowd</label>
+								<input type="number" placeholder="expected crowd" ng-model="event.crowd" value="0"/>
+							</div>
+
+						</div>
+
+						<div class="row">
+							<div class="large-8 columns">
+								<label>Services Needed</label>
+								<span ng-repeat="c in categories">
+									<input type='checkbox' value="{{c.id}}" ng-model="selected_services[c.id]"> {{c.name}}
+								</span>
+							</div>
+							<div class="large-4 columns" style="text-align: right;">
+								<button id="add-btn" class="btn btn-success" ng-click="addEvent(event)">Add</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="large-12 columns">
+					<table width="100%">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Time</th>
+								<th>Budget Allocated</th>
+								<th>Expected Crowd</th>
+								<th>Remark</th>
+								<th>Services</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="event in events">
+								<td>{{event.title}}</td>
+								<td>{{event.time}}</td>
+								<td>${{event.budget}}</td>
+								<td>{{event.crowd}}</td>
+								<td>{{event.remark}}</td>
+								<td>{{event.services | json}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
 		</div>
 	</div>
 
+
 	<script src="bower_components/jquery/jquery.min.js"></script>
 	<script src="bower_components/foundation/js/foundation.min.js"></script>
+	<script type="text/javascript" src="main.js"></script>
 
 	<script type="text/javascript">
 	$(document).foundation();
